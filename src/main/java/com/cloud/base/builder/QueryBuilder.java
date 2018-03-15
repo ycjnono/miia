@@ -45,12 +45,17 @@ public abstract class QueryBuilder implements Cloneable {
 	 * 分页长
 	 */
 	protected int pageSize;
-	
+
+	/**
+	 * 无分页最大检索条数
+	 */
+	protected int maxSize = 9999;
+
 	/**
 	 * 转换为完整的查询sql语句
 	 * 
 	 * @return
 	 */
 	public abstract String asSql();
-	
+
 }
