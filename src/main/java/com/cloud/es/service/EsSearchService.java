@@ -1,7 +1,11 @@
 package com.cloud.es.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import com.cloud.base.builder.QueryBuilder;
+import com.cloud.base.entity.Document;
 import com.cloud.base.service.ISearchServie;
 
 /**
@@ -18,6 +22,12 @@ public class EsSearchService implements ISearchServie {
 	public boolean validSql(String sql) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public List<Document> list(QueryBuilder builder) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
