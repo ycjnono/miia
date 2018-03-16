@@ -1,6 +1,10 @@
 package com.cloud.base.builder;
 
 import java.util.Date;
+import java.util.List;
+
+import com.cloud.base.builder.condition.QueryCondition;
+import com.cloud.base.builder.condition.Sort;
 
 /**
  * 查询条件构造器
@@ -22,9 +26,9 @@ public abstract class QueryBuilder implements Cloneable {
 	protected String sql;
 
 	/**
-	 * 排序字段
+	 * 排序
 	 */
-	protected String orderBy;
+	protected Sort sort;
 
 	/**
 	 * 开始时间
@@ -52,10 +56,39 @@ public abstract class QueryBuilder implements Cloneable {
 	protected int maxSize = 9999;
 
 	/**
-	 * 转换为完整的查询sql语句
+	 * 与条件集合
+	 */
+	protected List<QueryCondition> conditions;
+
+	/**
+	 * 或条件集合
+	 */
+	protected List<QueryCondition> childrenConditions;
+
+	/**
+	 * 克隆
+	 */
+	public abstract QueryCondition clone();
+
+	/**
+	 * 转换为完整的原生sql语句
 	 * 
 	 * @return
 	 */
 	public abstract String asSql();
+
+	/**
+	 * 添加与条件
+	 * 
+	 * @param condition
+	 */
+	public abstract void addCondition(QueryCondition condition);
+
+	/**
+	 * 添加或条件
+	 * 
+	 * @param condition
+	 */
+	public abstract void addChidrenCondition(QueryCondition condition);
 
 }

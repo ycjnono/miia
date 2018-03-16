@@ -12,7 +12,18 @@ import lombok.Data;
 @Data
 public class QueryCondition {
 	
+	/**
+	 * 字段
+	 */
 	private String field;
 	
-
+	/**
+	 * 值
+	 */
+	private String[] value;
+	
+	/**
+	 * 运算符
+	 */
+	private Operator operator;
 }
