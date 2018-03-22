@@ -119,5 +119,6 @@
 	
 	<modules>
 		<module>project-user</module>
+		<module>project-eureka</module>
 	</modules>
 </project>
