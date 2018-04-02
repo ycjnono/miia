@@ -69,6 +69,14 @@
 			<artifactId>pbkdf2</artifactId>
 			<version>3.0.4</version>
 		</dependency>
+		
+		<!-- 工具包  -->
+		<dependency>
+			<groupId>com.miia</groupId>
+			<artifactId>base</artifactId>
+			<version>0.0.1.RELEASE</version>
+		</dependency>
+		
 
 	</dependencies>
 
