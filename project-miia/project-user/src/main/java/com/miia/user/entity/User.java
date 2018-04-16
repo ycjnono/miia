@@ -1,6 +1,7 @@
 package com.miia.user.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -20,6 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
 @Table(name = "`user`")
 public class User extends BaseEntity {
 

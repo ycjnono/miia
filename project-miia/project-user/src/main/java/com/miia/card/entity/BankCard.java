@@ -4,6 +4,7 @@
 package com.miia.card.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.miia.base.entity.common.BaseEntity;
@@ -19,6 +20,7 @@ import lombok.NoArgsConstructor;
  * @Copyright 2018 MIIA
  */
 @Getter
+@Entity
 @NoArgsConstructor
 @Table(name = "`bank_card`")
 public class BankCard extends BaseEntity {

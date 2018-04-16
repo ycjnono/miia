@@ -4,6 +4,7 @@
 package com.miia.vip.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.miia.vip.entity.Member;
 
@@ -13,6 +14,7 @@ import com.miia.vip.entity.Member;
  * @since miia group for beijing
  * @Copyright 2018 MIIA
  */
-public interface IMemberDao extends JpaRepository<String, Member> {
+@Repository
+public interface IMemberDao extends JpaRepository<Member, String> {
 
 }

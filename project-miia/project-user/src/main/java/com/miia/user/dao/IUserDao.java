@@ -13,7 +13,7 @@ import com.miia.user.entity.User;
  * @Copyright 2018 MIIA
  */
 @Repository
-public interface IUserDao extends JpaRepository<String, User> {
+public interface IUserDao extends JpaRepository<User, String> {
 	
 	
 
