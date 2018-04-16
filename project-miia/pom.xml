@@ -26,6 +26,11 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-redis</artifactId>
+			<version>1.4.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
@@ -69,14 +74,14 @@
 			<artifactId>pbkdf2</artifactId>
 			<version>3.0.4</version>
 		</dependency>
-		
-		<!-- 工具包  -->
+
+		<!-- 工具包 -->
 		<dependency>
 			<groupId>com.miia</groupId>
 			<artifactId>base</artifactId>
 			<version>0.0.1.RELEASE</version>
 		</dependency>
-		
+
 
 	</dependencies>
 
@@ -124,7 +129,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<modules>
 		<module>project-user</module>
 		<module>project-eureka</module>

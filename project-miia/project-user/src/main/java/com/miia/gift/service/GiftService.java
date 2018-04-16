@@ -14,5 +14,10 @@ import com.miia.gift.pool.Gift;
  */
 public interface GiftService {
 
+	/**
+	 * 抽奖
+	 * 
+	 * @return
+	 */
 	public Gift draw();
 }
