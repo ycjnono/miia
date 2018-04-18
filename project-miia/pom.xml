@@ -136,5 +136,7 @@
 		<module>project-crawler</module>
 		<module>project-search</module>
 		<module>project-analysis</module>
+		<module>project-mail</module>
+		<module>project-notice</module>
 	</modules>
 </project>

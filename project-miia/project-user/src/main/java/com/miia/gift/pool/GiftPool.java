@@ -40,5 +40,4 @@ public class GiftPool implements ObserverPool {
 			}
 		}
 	}
-
 }
