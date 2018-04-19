@@ -1,11 +1,9 @@
 /**
  * all Copyright 2018 MIIA
  */
-package com.miia.mail;
+package com.miia.mail.sender;
 
 import java.io.UnsupportedEncodingException;
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
 import java.util.Date;
 import java.util.Properties;
 
@@ -17,6 +15,7 @@ import javax.mail.internet.MimeMessage;
 
 import com.miia.base.AbstractSender;
 import com.miia.exception.SendException;
+import com.miia.mail.util.MailConst;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,21 +29,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MailSender extends AbstractSender {
 
-	private static String SMTP = "mail.transport.protocol";
-
-	private static String HOST = "mail.smtp.host";
 
 	private String host = "";
-
-	private static String AUTH = "mail.smtp.auth";
-
 	private String user = "";
 	private String password = "";
-
-	/**
-	 * 验证邮箱密码
-	 */
-	Authenticator auth = null;
 
 	/**
 	 * 初始化配置项
@@ -53,11 +41,6 @@ public class MailSender extends AbstractSender {
 		host = properties.getProperty("system.mail.host");
 		user = properties.getProperty("system.mail.user");
 		password = properties.getProperty("system.mail.password");
-		auth = new Authenticator() {
-			public PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(user, password.toCharArray());
-			}
-		};
 		// 默认使用
 		config.setFromAddress(user);
 	}
@@ -89,9 +72,9 @@ public class MailSender extends AbstractSender {
 	 */
 	private Session createSession() {
 		Properties properties = new Properties();
-		properties.setProperty(SMTP, "smtp");
-		properties.setProperty(HOST, host);
-		properties.setProperty(AUTH, "true");
+		properties.setProperty(MailConst.SMTP, "smtp");
+		properties.setProperty(MailConst.HOST, host);
+		properties.setProperty(MailConst.AUTH, "true");
 		Session session = Session.getInstance(properties);
 		session.setDebug(true);
 		return session;
