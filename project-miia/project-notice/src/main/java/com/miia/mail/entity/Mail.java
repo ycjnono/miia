@@ -27,7 +27,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name = "`mail`")
 @Entity
-public class Mail extends BaseEntity{
+public class Mail extends BaseEntity {
 
 	/**
 	 * 
@@ -51,11 +51,36 @@ public class Mail extends BaseEntity{
 	 */
 	@Column(name = "`fromAddress`")
 	private String fromAddress;
-	
+
 	/**
 	 * 正文
 	 */
 	@Column(name = "`content`")
 	private String content;
-	
+
+	/**
+	 * 比较对象值是否一致
+	 * 
+	 * @param mail
+	 * @return
+	 */
+	public boolean equals(Mail mail) {
+		if (mail == null) {
+			return false;
+		}
+		if (!folder.equals(mail.getFolder())) {
+			return false;
+		}
+		if (!subject.equals(mail.getSubject())) {
+			return false;
+		}
+		if (!fromAddress.equals(mail.getFromAddress())) {
+			return false;
+		}
+		if (!content.equals(mail.getContent())) {
+			return false;
+		}
+		return true;
+	}
+
 }

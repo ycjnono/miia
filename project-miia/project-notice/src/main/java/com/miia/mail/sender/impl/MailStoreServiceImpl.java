@@ -12,15 +12,20 @@ import javax.mail.Address;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Store;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.miia.exception.SearchException;
+import com.miia.mail.dao.IMailDao;
 import com.miia.mail.entity.Mail;
 import com.miia.mail.entity.MailAuth;
 import com.miia.mail.service.IMailStoreService;
@@ -38,6 +43,9 @@ import lombok.extern.log4j.Log4j;
 @Service
 @Log4j
 public class MailStoreServiceImpl implements IMailStoreService {
+	
+	@Autowired
+	private IMailDao mailDao;
 
 	@Value("${system.mail.host}")
 	private String host;
@@ -57,24 +65,35 @@ public class MailStoreServiceImpl implements IMailStoreService {
 	 */
 	@Override
 	public Page<Mail> pageList(MailAuth auth, int pageNo, int pageSize) throws SearchException {
+		Sort sort = new Sort(Direction.DESC, "createdTime");
+		Pageable pageable = new PageRequest(pageNo, pageSize, sort);
+		Page<Mail> pageList = this.mailDao.findAll(pageable);
+		List<Mail> list = this.list(auth);
+		if (pageList != null && list != null) {
+			if (pageList.getTotalElements() !=  list.size()) {
+				
+			}
+		}
 		return null;
 	}
-	
-	
 
 	/**
+	 * 列表查询
 	 * 
 	 * @param auth
 	 * @return
 	 */
 	private List<Mail> list(MailAuth auth) {
+		// 获取session
 		Session session = this.createSession();
 		List<Mail> list = new ArrayList<>();
+		Folder folder = null;
+		Store store = null;
 		try {
-			Store store = session.getStore();
+			store = session.getStore();
 			store.connect(auth.getAddress(), auth.getPassword());
 
-			Folder folder = store.getFolder("INBOX");
+			folder = store.getFolder("INBOX");
 			folder.open(Folder.READ_WRITE);
 
 			Message[] messages = folder.getMessages();
@@ -92,6 +111,8 @@ public class MailStoreServiceImpl implements IMailStoreService {
 			return list;
 		} catch (MessagingException | IOException e) {
 			throw new SearchException(e);
+		} finally {
+			destroy(folder, store);
 		}
 	}
 
@@ -108,28 +129,6 @@ public class MailStoreServiceImpl implements IMailStoreService {
 		Session session = Session.getInstance(properties);
 		session.setDebug(true);
 		return session;
-	}
-
-	/**
-	 * 获取Folder 对象
-	 * 
-	 * @param session
-	 * @return
-	 */
-	private Folder createFolder(Session session) throws SearchException {
-		Store store = null;
-		Folder folder = null;
-		try {
-			store = session.getStore();
-			store.connect(user, password);
-			folder = store.getFolder("INBOX");
-			folder.open(Folder.READ_WRITE);
-			return folder;
-		} catch (MessagingException e) {
-			throw new SearchException(e);
-		} finally {
-			this.destroy(folder, store);
-		}
 	}
 
 	/**
@@ -153,10 +152,12 @@ public class MailStoreServiceImpl implements IMailStoreService {
 		}
 	}
 
-
-
-	/* (non-Javadoc)
-	 * @see com.miia.mail.service.IMailStoreService#listRealTime(com.miia.mail.entity.MailAuth)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.miia.mail.service.IMailStoreService#listRealTime(com.miia.mail.entity
+	 * .MailAuth)
 	 */
 	@Override
 	public List<Mail> listRealTime(MailAuth auth) {
